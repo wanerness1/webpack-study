@@ -6,7 +6,7 @@ import cat from "./img/cat.jpg";
 class Search extends React.Component{
     render(){
         return <div  className='color'>
-            im search miao111
+            im search miao
             <img src={cat} width={200} height={200}/>
             </div>
     }
