@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- 使用raw-loader进行html，js文件的内联 -->
+
+    <!-- meta.html的内联 -->
+    ${require('raw-loader!../htmltemp/meta.html')}
+
+    <!-- flexible.js内联 -->
+    <!-- <script> ${require('raw-loader!babel-loader!../../node_modules/lib-flexible/flexible.js')}</script> -->
+   
+  
+    <title>Document</title>
+</head>
+<body>
+    <div id='root'></div>
+
+    <!-- 通过HtmlWebpackExternalsPlugin插件分离了react和react-dom，通过cdn方式引入 -->
+    <!-- <script src="https://11.url.cn/now/lib/15.1.0/react-with-addons.min.js?_bid=3123" ></script>
+    <script src="https://11.url.cn/now/lib/15.1.0/react-dom.min.js?_bid=3123" ></script> -->
+
+    
+</body>
+</html>

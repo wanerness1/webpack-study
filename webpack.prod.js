@@ -5,20 +5,56 @@ const webpack=require('webpack')
 const MiniCssExtractPlugin=require('mini-css-extract-plugin') //抽出css
 const HtmlWebpackPlugin = require('html-webpack-plugin') //生成html
 const optimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin')//css压缩
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin'); //清空dist
 const HTMLInlineCSSWebpackPlugin = require("html-inline-css-webpack-plugin").default;
+const glob=require('glob')
+const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin') //抽出公共库
+
+
+function setMPA(){//多页面entry与HtmlWebpackPlugin生成函数
+    const entry={}
+    const htmlWebpackPlugins=[]
+    const entryFiles=glob.sync(path.join(__dirname,'./src/*/index.js'))
+
+    console.log(entryFiles);
+    entryFiles.map(entryfile=>{
+        const entryName=entryfile.match(/src\/(.*)\/index/)[1]
+        entry[entryName]=entryfile
+
+        const htmlWebpackPlugin=new HtmlWebpackPlugin({//生成html插件，有压缩功能
+            template:path.join(__dirname,`src/${entryName}/index.html`),
+            filename:`${entryName}.html`,
+            chunks:[entryName,'vendors','commons'],//每个被splitChunks分离出来的公共代码成为一个新chunk，必须在这里注入
+            inject:true,
+            minify:{
+                html5:true,
+                collapseWhitespace:true,
+                preserveLineBreaks:false,
+                minifyCSS:true,
+                minifyJS:true,
+                removeComments:true
+            }
+        })
+
+        htmlWebpackPlugins.push(htmlWebpackPlugin)
+    })
+
+    return {
+        entry,
+        htmlWebpackPlugins
+    }
+    
+}
+
+const {entry,htmlWebpackPlugins}=setMPA()
 
 module.exports={
-    entry:{
-        index:'./src/index.js',
-        search:'./src/search.js'
-    },
+    entry:entry,
     output:{
         path:path.join(__dirname,'dist'),
-        filename:'[name]_[chunkhash:8].js'
-        // filename:'[name].js'
+        filename:'[name]_[chunkhash:8].js' //文件指纹
     },
-    mode:'production',
+    mode:'none',
     module:{
         rules:[
             {
@@ -69,39 +105,45 @@ module.exports={
             assetNameRegExp:/\.css$/g,
             cssProcessor:require('cssnano')
         }),
-        new HtmlWebpackPlugin({//生成html插件，有压缩功能
-            template:path.join(__dirname,'src/htmltemp/index.html'),
-            filename:'index.html',
-            chunks:['index'],
-            inject:true,
-            // minify:{
-            //     html5:true,
-            //     collapseWhitespace:true,
-            //     preserveLineBreaks:false,
-            //     minifyCSS:true,
-            //     minifyJS:true,
-            //     removeComments:true
-            // }
-        }),
-        new HtmlWebpackPlugin({
-            template:path.join(__dirname,'src/htmltemp/search.html'),
-            filename:'search.html',
-            chunks:['search'],
-            inject:true,
-            // minify:{
-            //     html5:true,
-            //     collapseWhitespace:true,
-            //     preserveLineBreaks:false,
-            //     minifyCSS:true,
-            //     minifyJS:true,
-            //     removeComments:true
-            // }
-        }),
-
+        ...htmlWebpackPlugins,
         new HTMLInlineCSSWebpackPlugin(),//css内联插件，需在HtmlWebpackPlugin插件后面使用，且必须结合MiniCssExtractPlugin抽出插件使用
-        new CleanWebpackPlugin() //清空dist
-       
-
+        new CleanWebpackPlugin(),//清空dist
+        new webpack.optimize.ModuleConcatenationPlugin(),//开启scope hoisting,mode为production时默认开启
+        // new HtmlWebpackExternalsPlugin({//将react和react-dom使用cdn方式引入，不打入bundle中
+        //     externals:[
+        //         {
+        //             module:'react',
+        //             entry:'//11.url.cn/now/lib/15.1.0/react-with-addons.min.js?_bid=3123',
+        //             global:'React'
+        //         },{
+        //             module:'react-dom',
+        //             entry:'//11.url.cn/now/lib/15.1.0/react-dom.min.js?_bid=3123',
+        //             global:'ReactDOM'
+        //         }
+        //     ]
+        // })
+    
     ],
+    optimization:{
+        splitChunks:{ //使用splitChunks分离公共库与公共代码
+            minSize:0,
+            cacheGroups:{//分离eact和react-dom基础库
+                vendors:{
+                    test:/(react|react-dom)/,
+                    name:'vendors',
+                    chunks:'all'
+                },
+                commons:{//分离公共模块
+                    name:'commons',
+                    chunks:'all',
+                    minChunks:2
+                }        
+            }
+        }
+
+     
+
+    }
+    
    
 }

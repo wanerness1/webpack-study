@@ -1,14 +1,52 @@
-const path = require('path');
+const path=require('path')
 const webpack=require('webpack')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin') //打包时自动清理dist文件夹
+const MiniCssExtractPlugin=require('mini-css-extract-plugin') //抽出css
+const HtmlWebpackPlugin = require('html-webpack-plugin') //生成html
+const optimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin')//css压缩
+const { CleanWebpackPlugin } = require('clean-webpack-plugin'); //清空dist
+const HTMLInlineCSSWebpackPlugin = require("html-inline-css-webpack-plugin").default;
+const glob=require('glob')
 
+function setMPA(){//多页面entry与HtmlWebpackPlugin生成函数
+  const entry={}
+  const htmlWebpackPlugins=[]
+  const entryFiles=glob.sync(path.join(__dirname,'./src/*/index.js'))
+
+  console.log(entryFiles);
+  entryFiles.map(entryfile=>{
+      const entryName=entryfile.match(/src\/(.*)\/index/)[1]
+      entry[entryName]=entryfile
+
+      const htmlWebpackPlugin=new HtmlWebpackPlugin({//生成html插件，有压缩功能
+          template:path.join(__dirname,`src/${entryName}/index.html`),
+          filename:`${entryName}.html`,
+          chunks:[entryName],
+          inject:true,
+          minify:{
+              html5:true,
+              collapseWhitespace:true,
+              preserveLineBreaks:false,
+              minifyCSS:true,
+              minifyJS:true,
+              removeComments:true
+          }
+      })
+
+      htmlWebpackPlugins.push(htmlWebpackPlugin)
+  })
+
+  return {
+      entry,
+      htmlWebpackPlugins
+  }
+  
+}
+
+const {entry,htmlWebpackPlugins}=setMPA()
 module.exports = {
-  entry:{
-    index:'./src/index.js',
-    search:'./src/search.js'
-  },
+  entry:entry,
   output:{
-    // path:'/web-dev-server',
+    // path:path.join(__dirname,'dist'),
     filename:'[name].js'
   },
   mode:"development",
@@ -47,12 +85,16 @@ module.exports = {
     ]
   },
   plugins:[
+    
     new webpack.HotModuleReplacementPlugin(),
-    new CleanWebpackPlugin()
+    ...htmlWebpackPlugins,
+    new CleanWebpackPlugin(),
+    
   ],
   devServer:{
-    // contentBase:'', //不配置contentBase时，以当前根目录作为服务器，所以在根目录下放置index.html
+    // contentBase:'./dist', //不配置contentBase时，以当前根目录作为服务器，所以在根目录下放置index.html
     hot:true
-  }
+  },
+  devtool:'cheap-source-map'
 
 }
