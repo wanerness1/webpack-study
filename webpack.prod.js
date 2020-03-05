@@ -127,7 +127,7 @@ module.exports={
     optimization:{
         splitChunks:{ //使用splitChunks分离公共库与公共代码
             minSize:0,
-            cacheGroups:{//分离eact和react-dom基础库
+            cacheGroups:{//分离react和react-dom基础库
                 vendors:{
                     test:/(react|react-dom)/,
                     name:'vendors',
