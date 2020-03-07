@@ -9,6 +9,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin'); //清空dist
 const HTMLInlineCSSWebpackPlugin = require("html-inline-css-webpack-plugin").default;
 const glob=require('glob')
 const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin') //抽出公共库
+const FriendlyErrorsWebpackPlugin =require('friendly-errors-webpack-plugin')//优化webpack日志，配合 stats:'errors-only'使用
 
 
 function setMPA(){//多页面entry与HtmlWebpackPlugin生成函数
@@ -122,6 +123,16 @@ module.exports={
         //         }
         //     ]
         // })
+        new FriendlyErrorsWebpackPlugin(),
+        function(){//构建错误捕获 （webpack4写法）
+            this.hooks.done.tap('done',stats=>{//this为compiler对象，构建完成时，会触发done钩子
+                if(stats.compilation.errors&&stats.compilation.errors.length&&process.argv.indexOf('--watch')==-1){
+                    console.log('build error');
+                    //此处可执行上报逻辑等错误处理程序
+                    process.exit(1) //使用非0 code传递exit中，进行抛错
+                }
+            })
+        }
     
     ],
     optimization:{
@@ -140,10 +151,8 @@ module.exports={
                 }        
             }
         }
-
-     
-
-    }
+    },
+    stats:'errors-only'
     
    
 }

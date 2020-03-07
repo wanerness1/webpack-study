@@ -12,6 +12,8 @@ import { helloworld } from "./helloworld";
 // }
 
 // ReactDOM.render(<Main/>,document.getElementById('root'))
+
+
 document.write(helloworld()+'</br>'+common())
 
 

@@ -6,6 +6,8 @@ const optimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plug
 const { CleanWebpackPlugin } = require('clean-webpack-plugin'); //清空dist
 const HTMLInlineCSSWebpackPlugin = require("html-inline-css-webpack-plugin").default;
 const glob=require('glob')
+const FriendlyErrorsWebpackPlugin =require('friendly-errors-webpack-plugin')//优化webpack日志，配合 stats:'errors-only'使用
+
 
 function setMPA(){//多页面entry与HtmlWebpackPlugin生成函数
   const entry={}
@@ -89,11 +91,13 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     ...htmlWebpackPlugins,
     new CleanWebpackPlugin(),
+    new FriendlyErrorsWebpackPlugin()
     
   ],
   devServer:{
     // contentBase:'./dist', //不配置contentBase时，以当前根目录作为服务器，所以在根目录下放置index.html
-    hot:true
+    hot:true,
+    stats:'errors-only'
   },
   devtool:'cheap-source-map'
 
