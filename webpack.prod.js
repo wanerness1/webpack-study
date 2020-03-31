@@ -10,7 +10,10 @@ const HTMLInlineCSSWebpackPlugin = require("html-inline-css-webpack-plugin").def
 const glob=require('glob')
 const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin') //抽出公共库
 const FriendlyErrorsWebpackPlugin =require('friendly-errors-webpack-plugin')//优化webpack日志，配合 stats:'errors-only'使用
+const SpeedMeasureWebpackPlugin =require('speed-measure-webpack-plugin')
+const {BundleAnalyzerPlugin} =require('webpack-bundle-analyzer') //打包产物体积分析
 
+var smp=new SpeedMeasureWebpackPlugin()
 
 function setMPA(){//多页面entry与HtmlWebpackPlugin生成函数
     const entry={}
@@ -55,7 +58,7 @@ module.exports={
         path:path.join(__dirname,'dist'),
         filename:'[name]_[chunkhash:8].js' //文件指纹
     },
-    mode:'none',
+    mode:'production',
     module:{
         rules:[
             {
@@ -107,7 +110,7 @@ module.exports={
             cssProcessor:require('cssnano')
         }),
         ...htmlWebpackPlugins,
-        new HTMLInlineCSSWebpackPlugin(),//css内联插件，需在HtmlWebpackPlugin插件后面使用，且必须结合MiniCssExtractPlugin抽出插件使用
+        new HTMLInlineCSSWebpackPlugin(),//css内联插件，需在HtmlWebpackPlugin插件后面使用，且必须结合MiniCssExtractPlugin抽出插件使用,将样式放入style标签中内联到html内
         new CleanWebpackPlugin(),//清空dist
         new webpack.optimize.ModuleConcatenationPlugin(),//开启scope hoisting,mode为production时默认开启
         // new HtmlWebpackExternalsPlugin({//将react和react-dom使用cdn方式引入，不打入bundle中
@@ -122,7 +125,7 @@ module.exports={
         //             global:'ReactDOM'
         //         }
         //     ]
-        // })
+        // }),
         new FriendlyErrorsWebpackPlugin(),
         function(){//构建错误捕获 （webpack4写法）
             this.hooks.done.tap('done',stats=>{//this为compiler对象，构建完成时，会触发done钩子
@@ -132,7 +135,8 @@ module.exports={
                     process.exit(1) //使用非0 code传递exit中，进行抛错
                 }
             })
-        }
+        },
+        new BundleAnalyzerPlugin() 
     
     ],
     optimization:{

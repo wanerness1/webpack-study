@@ -45,6 +45,7 @@ function setMPA(){//多页面entry与HtmlWebpackPlugin生成函数
 }
 
 const {entry,htmlWebpackPlugins}=setMPA()
+
 module.exports = {
   entry:entry,
   output:{

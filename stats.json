@@ -1,0 +1,389 @@
+[
+  '/Users/wanzhang/study/webpack-study/src/index/index.js',
+  '/Users/wanzhang/study/webpack-study/src/search/index.js'
+]
+ DONE  Compiled successfully in 4071ms22:40:00
+
+{
+  "errors": [],
+  "warnings": [],
+  "modules": [
+    {
+      "id": 0,
+      "identifier": "/Users/wanzhang/study/webpack-study/node_modules/babel-loader/lib/index.js!/Users/wanzhang/study/webpack-study/node_modules/react/index.js",
+      "name": "./node_modules/react/index.js",
+      "index": 4,
+      "index2": 5,
+      "size": 189,
+      "cacheable": true,
+      "built": true,
+      "optional": false,
+      "prefetched": false,
+      "chunks": [
+        3
+      ],
+      "issuer": "/Users/wanzhang/study/webpack-study/node_modules/babel-loader/lib/index.js!/Users/wanzhang/study/webpack-study/src/search/index.js",
+      "issuerId": null,
+      "issuerName": "./src/search/index.js",
+      "issuerPath": [
+        {
+          "id": null,
+          "identifier": "/Users/wanzhang/study/webpack-study/node_modules/babel-loader/lib/index.js!/Users/wanzhang/study/webpack-study/src/search/index.js",
+          "name": "./src/search/index.js"
+        }
+      ],
+      "failed": false,
+      "errors": 0,
+      "warnings": 0
+    },
+    {
+      "id": 1,
+      "identifier": "/Users/wanzhang/study/webpack-study/node_modules/babel-loader/lib/index.js!/Users/wanzhang/study/webpack-study/common/common.js",
+      "name": "./common/common.js",
+      "index": 1,
+      "index2": 0,
+      "size": 51,
+      "cacheable": true,
+      "built": true,
+      "optional": false,
+      "prefetched": false,
+      "chunks": [
+        0
+      ],
+      "issuer": "/Users/wanzhang/study/webpack-study/node_modules/babel-loader/lib/index.js!/Users/wanzhang/study/webpack-study/src/search/index.js",
+      "issuerId": null,
+      "issuerName": "./src/search/index.js",
+      "issuerPath": [
+        {
+          "id": null,
+          "identifier": "/Users/wanzhang/study/webpack-study/node_modules/babel-loader/lib/index.js!/Users/wanzhang/study/webpack-study/src/search/index.js",
+          "name": "./src/search/index.js"
+        }
+      ],
+      "failed": false,
+      "errors": 0,
+      "warnings": 0
+    },
+    {
+      "id": 2,
+      "identifier": "/Users/wanzhang/study/webpack-study/node_modules/babel-loader/lib/index.js!/Users/wanzhang/study/webpack-study/node_modules/object-assign/index.js",
+      "name": "./node_modules/object-assign/index.js",
+      "index": 6,
+      "index2": 3,
+      "size": 2226,
+      "cacheable": true,
+      "built": true,
+      "optional": false,
+      "prefetched": false,
+      "chunks": [
+        2
+      ],
+      "issuer": "/Users/wanzhang/study/webpack-study/node_modules/babel-loader/lib/index.js!/Users/wanzhang/study/webpack-study/node_modules/react-dom/cjs/react-dom.production.min.js",
+      "issuerId": 5,
+      "issuerName": "./node_modules/react-dom/cjs/react-dom.production.min.js",
+      "issuerPath": [
+        {
+          "id": null,
+          "identifier": "/Users/wanzhang/study/webpack-study/node_modules/babel-loader/lib/index.js!/Users/wanzhang/study/webpack-study/src/search/index.js",
+          "name": "./src/search/index.js"
+        },
+        {
+          "id": 3,
+          "identifier": "/Users/wanzhang/study/webpack-study/node_modules/babel-loader/lib/index.js!/Users/wanzhang/study/webpack-study/node_modules/react-dom/index.js",
+          "name": "./node_modules/react-dom/index.js"
+        },
+        {
+          "id": 5,
+          "identifier": "/Users/wanzhang/study/webpack-study/node_modules/babel-loader/lib/index.js!/Users/wanzhang/study/webpack-study/node_modules/react-dom/cjs/react-dom.production.min.js",
+          "name": "./node_modules/react-dom/cjs/react-dom.production.min.js"
+        }
+      ],
+      "failed": false,
+      "errors": 0,
+      "warnings": 0
+    },
+    {
+      "id": 3,
+      "identifier": "/Users/wanzhang/study/webpack-study/node_modules/babel-loader/lib/index.js!/Users/wanzhang/study/webpack-study/node_modules/react-dom/index.js",
+      "name": "./node_modules/react-dom/index.js",
+      "index": 7,
+      "index2": 9,
+      "size": 1352,
+      "cacheable": true,
+      "built": true,
+      "optional": false,
+      "prefetched": false,
+      "chunks": [
+        3
+      ],
+      "issuer": "/Users/wanzhang/study/webpack-study/node_modules/babel-loader/lib/index.js!/Users/wanzhang/study/webpack-study/src/search/index.js",
+      "issuerId": null,
+      "issuerName": "./src/search/index.js",
+      "issuerPath": [
+        {
+          "id": null,
+          "identifier": "/Users/wanzhang/study/webpack-study/node_modules/babel-loader/lib/index.js!/Users/wanzhang/study/webpack-study/src/search/index.js",
+          "name": "./src/search/index.js"
+        }
+      ],
+      "failed": false,
+      "errors": 0,
+      "warnings": 0
+    },
+    {
+      "id": 4,
+      "identifier": "/Users/wanzhang/study/webpack-study/node_modules/babel-loader/lib/index.js!/Users/wanzhang/study/webpack-study/node_modules/react/cjs/react.production.min.js",
+      "name": "./node_modules/react/cjs/react.production.min.js",
+      "index": 5,
+      "index2": 4,
+      "size": 9117,
+      "cacheable": true,
+      "built": true,
+      "optional": false,
+      "prefetched": false,
+      "chunks": [
+        3
+      ],
+      "issuer": "/Users/wanzhang/study/webpack-study/node_modules/babel-loader/lib/index.js!/Users/wanzhang/study/webpack-study/node_modules/react/index.js",
+      "issuerId": 0,
+      "issuerName": "./node_modules/react/index.js",
+      "issuerPath": [
+        {
+          "id": null,
+          "identifier": "/Users/wanzhang/study/webpack-study/node_modules/babel-loader/lib/index.js!/Users/wanzhang/study/webpack-study/src/search/index.js",
+          "name": "./src/search/index.js"
+        },
+        {
+          "id": 0,
+          "identifier": "/Users/wanzhang/study/webpack-study/node_modules/babel-loader/lib/index.js!/Users/wanzhang/study/webpack-study/node_modules/react/index.js",
+          "name": "./node_modules/react/index.js"
+        }
+      ],
+      "failed": false,
+      "errors": 0,
+      "warnings": 0
+    },
+    {
+      "id": 5,
+      "identifier": "/Users/wanzhang/study/webpack-study/node_modules/babel-loader/lib/index.js!/Users/wanzhang/study/webpack-study/node_modules/react-dom/cjs/react-dom.production.min.js",
+      "name": "./node_modules/react-dom/cjs/react-dom.production.min.js",
+      "index": 8,
+      "index2": 8,
+      "size": 175351,
+      "cacheable": true,
+      "built": true,
+      "optional": false,
+      "prefetched": false,
+      "chunks": [
+        3
+      ],
+      "issuer": "/Users/wanzhang/study/webpack-study/node_modules/babel-loader/lib/index.js!/Users/wanzhang/study/webpack-study/node_modules/react-dom/index.js",
+      "issuerId": 3,
+      "issuerName": "./node_modules/react-dom/index.js",
+      "issuerPath": [
+        {
+          "id": null,
+          "identifier": "/Users/wanzhang/study/webpack-study/node_modules/babel-loader/lib/index.js!/Users/wanzhang/study/webpack-study/src/search/index.js",
+          "name": "./src/search/index.js"
+        },
+        {
+          "id": 3,
+          "identifier": "/Users/wanzhang/study/webpack-study/node_modules/babel-loader/lib/index.js!/Users/wanzhang/study/webpack-study/node_modules/react-dom/index.js",
+          "name": "./node_modules/react-dom/index.js"
+        }
+      ],
+      "failed": false,
+      "errors": 0,
+      "warnings": 0
+    },
+    {
+      "id": 6,
+      "identifier": "/Users/wanzhang/study/webpack-study/node_modules/babel-loader/lib/index.js!/Users/wanzhang/study/webpack-study/node_modules/scheduler/index.js",
+      "name": "./node_modules/scheduler/index.js",
+      "index": 9,
+      "index2": 7,
+      "size": 197,
+      "cacheable": true,
+      "built": true,
+      "optional": false,
+      "prefetched": false,
+      "chunks": [
+        2
+      ],
+      "issuer": "/Users/wanzhang/study/webpack-study/node_modules/babel-loader/lib/index.js!/Users/wanzhang/study/webpack-study/node_modules/react-dom/cjs/react-dom.production.min.js",
+      "issuerId": 5,
+      "issuerName": "./node_modules/react-dom/cjs/react-dom.production.min.js",
+      "issuerPath": [
+        {
+          "id": null,
+          "identifier": "/Users/wanzhang/study/webpack-study/node_modules/babel-loader/lib/index.js!/Users/wanzhang/study/webpack-study/src/search/index.js",
+          "name": "./src/search/index.js"
+        },
+        {
+          "id": 3,
+          "identifier": "/Users/wanzhang/study/webpack-study/node_modules/babel-loader/lib/index.js!/Users/wanzhang/study/webpack-study/node_modules/react-dom/index.js",
+          "name": "./node_modules/react-dom/index.js"
+        },
+        {
+          "id": 5,
+          "identifier": "/Users/wanzhang/study/webpack-study/node_modules/babel-loader/lib/index.js!/Users/wanzhang/study/webpack-study/node_modules/react-dom/cjs/react-dom.production.min.js",
+          "name": "./node_modules/react-dom/cjs/react-dom.production.min.js"
+        }
+      ],
+      "failed": false,
+      "errors": 0,
+      "warnings": 0
+    },
+    {
+      "id": 7,
+      "identifier": "/Users/wanzhang/study/webpack-study/node_modules/babel-loader/lib/index.js!/Users/wanzhang/study/webpack-study/node_modules/scheduler/cjs/scheduler.production.min.js",
+      "name": "./node_modules/scheduler/cjs/scheduler.production.min.js",
+      "index": 10,
+      "index2": 6,
+      "size": 7175,
+      "cacheable": true,
+      "built": true,
+      "optional": false,
+      "prefetched": false,
+      "chunks": [
+        2
+      ],
+      "issuer": "/Users/wanzhang/study/webpack-study/node_modules/babel-loader/lib/index.js!/Users/wanzhang/study/webpack-study/node_modules/scheduler/index.js",
+      "issuerId": 6,
+      "issuerName": "./node_modules/scheduler/index.js",
+      "issuerPath": [
+        {
+          "id": null,
+          "identifier": "/Users/wanzhang/study/webpack-study/node_modules/babel-loader/lib/index.js!/Users/wanzhang/study/webpack-study/src/search/index.js",
+          "name": "./src/search/index.js"
+        },
+        {
+          "id": 3,
+          "identifier": "/Users/wanzhang/study/webpack-study/node_modules/babel-loader/lib/index.js!/Users/wanzhang/study/webpack-study/node_modules/react-dom/index.js",
+          "name": "./node_modules/react-dom/index.js"
+        },
+        {
+          "id": 5,
+          "identifier": "/Users/wanzhang/study/webpack-study/node_modules/babel-loader/lib/index.js!/Users/wanzhang/study/webpack-study/node_modules/react-dom/cjs/react-dom.production.min.js",
+          "name": "./node_modules/react-dom/cjs/react-dom.production.min.js"
+        },
+        {
+          "id": 6,
+          "identifier": "/Users/wanzhang/study/webpack-study/node_modules/babel-loader/lib/index.js!/Users/wanzhang/study/webpack-study/node_modules/scheduler/index.js",
+          "name": "./node_modules/scheduler/index.js"
+        }
+      ],
+      "failed": false,
+      "errors": 0,
+      "warnings": 0
+    },
+    {
+      "id": 8,
+      "identifier": "/Users/wanzhang/study/webpack-study/node_modules/mini-css-extract-plugin/dist/loader.js!/Users/wanzhang/study/webpack-study/node_modules/css-loader/dist/cjs.js!/Users/wanzhang/study/webpack-study/node_modules/postcss-loader/src/index.js??ref--5-2!/Users/wanzhang/study/webpack-study/node_modules/px2rem-loader/index.js??ref--5-3!/Users/wanzhang/study/webpack-study/src/search/search.css",
+      "name": "./src/search/search.css",
+      "index": 11,
+      "index2": 11,
+      "size": 39,
+      "cacheable": true,
+      "built": true,
+      "optional": false,
+      "prefetched": false,
+      "chunks": [
+        2
+      ],
+      "issuer": "/Users/wanzhang/study/webpack-study/node_modules/babel-loader/lib/index.js!/Users/wanzhang/study/webpack-study/src/search/index.js",
+      "issuerId": null,
+      "issuerName": "./src/search/index.js",
+      "issuerPath": [
+        {
+          "id": null,
+          "identifier": "/Users/wanzhang/study/webpack-study/node_modules/babel-loader/lib/index.js!/Users/wanzhang/study/webpack-study/src/search/index.js",
+          "name": "./src/search/index.js"
+        }
+      ],
+      "failed": false,
+      "errors": 0,
+      "warnings": 0
+    },
+    {
+      "id": 9,
+      "identifier": "/Users/wanzhang/study/webpack-study/node_modules/babel-loader/lib/index.js!/Users/wanzhang/study/webpack-study/src/search/index.js 85ccd1e68b9dfa0b684cb1088a900a95",
+      "name": "./src/search/index.js + 2 modules",
+      "index": 3,
+      "index2": 14,
+      "size": 3935,
+      "cacheable": true,
+      "built": true,
+      "optional": false,
+      "prefetched": false,
+      "chunks": [
+        2
+      ],
+      "issuer": null,
+      "issuerId": null,
+      "issuerName": null,
+      "issuerPath": null,
+      "failed": false,
+      "errors": 0,
+      "warnings": 0
+    },
+    {
+      "id": 10,
+      "identifier": "/Users/wanzhang/study/webpack-study/node_modules/babel-loader/lib/index.js!/Users/wanzhang/study/webpack-study/src/index/index.js ae52c383a19a2d6e5565f422bf157a12",
+      "name": "./src/index/index.js + 1 modules",
+      "index": 0,
+      "index2": 2,
+      "size": 466,
+      "cacheable": true,
+      "built": true,
+      "optional": false,
+      "prefetched": false,
+      "chunks": [
+        1
+      ],
+      "issuer": null,
+      "issuerId": null,
+      "issuerName": null,
+      "issuerPath": null,
+      "failed": false,
+      "errors": 0,
+      "warnings": 0
+    },
+    {
+      "id": 11,
+      "identifier": "/Users/wanzhang/study/webpack-study/node_modules/babel-loader/lib/index.js!/Users/wanzhang/study/webpack-study/src/search/DynamicComp.js",
+      "name": "./src/search/DynamicComp.js",
+      "index": 15,
+      "index2": 15,
+      "size": 2799,
+      "cacheable": true,
+      "built": true,
+      "optional": false,
+      "prefetched": false,
+      "chunks": [
+        4
+      ],
+      "issuer": "/Users/wanzhang/study/webpack-study/node_modules/babel-loader/lib/index.js!/Users/wanzhang/study/webpack-study/src/search/index.js",
+      "issuerId": null,
+      "issuerName": "./src/search/index.js",
+      "issuerPath": [
+        {
+          "id": null,
+          "identifier": "/Users/wanzhang/study/webpack-study/node_modules/babel-loader/lib/index.js!/Users/wanzhang/study/webpack-study/src/search/index.js",
+          "name": "./src/search/index.js"
+        }
+      ],
+      "failed": false,
+      "errors": 0,
+      "warnings": 0
+    }
+  ],
+  "filteredModules": 1,
+  "logging": {
+    "webpack.buildChunkGraph.visitModules": {
+      "entries": [],
+      "filteredEntries": 5,
+      "debug": false
+    }
+  }
+}
