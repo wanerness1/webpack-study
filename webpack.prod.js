@@ -12,7 +12,14 @@ const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin') //�
 const FriendlyErrorsWebpackPlugin =require('friendly-errors-webpack-plugin')//优化webpack日志，配合 stats:'errors-only'使用
 const SpeedMeasureWebpackPlugin =require('speed-measure-webpack-plugin')
 const {BundleAnalyzerPlugin} =require('webpack-bundle-analyzer') //打包产物体积分析
+const TerserPlugin =require('terser-webpack-plugin') //并行压缩，提升打包速度
+// var HardSourceWebpackPlugin = require('hard-source-webpack-plugin');//缓存 todo:npm 下载失败，待下载
+const PurgecssPlugin = require('purgecss-webpack-plugin') //去除无用的css，需要结合mini-css-extract-plugin使用
 
+ 
+const PATHS = {
+  src: path.join(__dirname, 'src')
+}
 var smp=new SpeedMeasureWebpackPlugin()
 
 function setMPA(){//多页面entry与HtmlWebpackPlugin生成函数
@@ -63,7 +70,17 @@ module.exports={
         rules:[
             {
                 test:/\.js$/,
-                use:'babel-loader'
+                include:path.resolve('src'), //只解析src下的js，忽略node_modules等
+                use:[
+                    // {
+                    //     loader:'thread-loader',//多线程打包，提速
+                    //     options:{
+                    //         worker:10
+                    //     }
+                    // },
+                    // 'babel-loader'
+                    'babel-loader?cacheDirectory=true' //cacheDirectory开启babel缓存，加快第二次构建速度，在node_modules下.cache文件夹中会出现babel-loader文件夹
+                ]
             },
             {
                 test:/.css$/,
@@ -96,7 +113,31 @@ module.exports={
                         options:{
                             name:'[name]_[hash:8].[ext]' //根据内容生成hash 
                         }
-                    }
+                    },
+                    {
+                        loader: 'image-webpack-loader', //图片压缩
+                        options: {
+                          mozjpeg: {
+                            progressive: true,
+                            quality: 65
+                          },
+                          // optipng.enabled: false will disable optipng
+                          optipng: {
+                            enabled: false,
+                          },
+                          pngquant: {
+                            quality: [0.65, 0.90],
+                            speed: 4
+                          },
+                          gifsicle: {
+                            interlaced: false,
+                          },
+                          // the webp option will enable WEBP
+                          webp: {
+                            quality: 75
+                          }
+                        }
+                      },
                 ]
             }
         ]
@@ -110,7 +151,7 @@ module.exports={
             cssProcessor:require('cssnano')
         }),
         ...htmlWebpackPlugins,
-        new HTMLInlineCSSWebpackPlugin(),//css内联插件，需在HtmlWebpackPlugin插件后面使用，且必须结合MiniCssExtractPlugin抽出插件使用,将样式放入style标签中内联到html内
+        // new HTMLInlineCSSWebpackPlugin(),//css内联插件，需在HtmlWebpackPlugin插件后面使用，且必须结合MiniCssExtractPlugin抽出插件使用,将样式放入style标签中内联到html内
         new CleanWebpackPlugin(),//清空dist
         new webpack.optimize.ModuleConcatenationPlugin(),//开启scope hoisting,mode为production时默认开启
         // new HtmlWebpackExternalsPlugin({//将react和react-dom使用cdn方式引入，不打入bundle中
@@ -126,7 +167,7 @@ module.exports={
         //         }
         //     ]
         // }),
-        new FriendlyErrorsWebpackPlugin(),
+        // new FriendlyErrorsWebpackPlugin(),
         function(){//构建错误捕获 （webpack4写法）
             this.hooks.done.tap('done',stats=>{//this为compiler对象，构建完成时，会触发done钩子
                 if(stats.compilation.errors&&stats.compilation.errors.length&&process.argv.indexOf('--watch')==-1){
@@ -136,27 +177,55 @@ module.exports={
                 }
             })
         },
-        new BundleAnalyzerPlugin() 
+        new BundleAnalyzerPlugin(),
+        new webpack.DllReferencePlugin({ //读取预编译的manifest文件，预编译的库不打入业务包
+            manifest: require("./dll/library-manifest.json"), // eslint-disable-line
+            name:"library"
+        }),
+        // new HardSourceWebpackPlugin()，
+        new PurgecssPlugin({
+            paths: glob.sync(`${PATHS.src}/**/*`,  { nodir: true }),
+          }),
     
     ],
     optimization:{
-        splitChunks:{ //使用splitChunks分离公共库与公共代码
-            minSize:0,
-            cacheGroups:{//分离react和react-dom基础库
-                vendors:{
-                    test:/(react|react-dom)/,
-                    name:'vendors',
-                    chunks:'all'
-                },
-                commons:{//分离公共模块
-                    name:'commons',
-                    chunks:'all',
-                    minChunks:2
-                }        
-            }
-        }
+        // splitChunks:{ //使用splitChunks分离公共库与公共代码
+        //     minSize:0,
+        //     cacheGroups:{//分离react和react-dom基础库
+        //         vendors:{
+        //             test:/(react|react-dom)/,
+        //             name:'vendors',
+        //             chunks:'all'
+        //         },
+        //         commons:{//分离公共模块
+        //             name:'commons',
+        //             chunks:'all',
+        //             minChunks:2
+        //         }        
+        //     }
+        // },
+
+        minimizer:[
+            new TerserPlugin({
+                parallel:true,
+                cache:true //开启TerserPlugin缓存
+            })
+        ] 
+
+
     },
-    stats:'errors-only'
+
+    // resolve:{ //规定第三方模块查找策略，加速模块查找
+    //     alias:{ //当遇到react或者react-dom时，直接从后面的路径进行查找，加快查找时间
+    //         'react':path.resolve(__dirname,'./node_modules/react/umd/react.production.min.js'),
+    //         'react-dom':path.resolve(__dirname,'./node_modules/react-dom/umd/react-dom.production.min.js'),
+    //     },
+    //     extensions:['.js'],//只查找每个模块的js文件（忽略json查找）
+    //     mainFields:['main'],//只查找每个模块package.json中main规定的入口文件（忽略index等文件）
+
+    // },
+
+    // stats:'errors-only'
     
    
 }
